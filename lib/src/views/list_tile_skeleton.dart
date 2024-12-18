@@ -1,4 +1,4 @@
-part of './index.dart';
+part of '../views.dart';
 
 class ListTileSkeleton extends StatelessWidget {
 	const ListTileSkeleton({super.key});

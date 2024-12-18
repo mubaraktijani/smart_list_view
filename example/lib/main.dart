@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_list_view/layouts/layouts.dart';
 import 'package:smart_list_view/smart_list_view.dart';
 
 void main() {
@@ -15,7 +14,7 @@ class MainApp extends StatelessWidget {
 			body: Column(
 				children: [
 					Expanded(child: listView()),
-					Expanded(child: gridView()),
+					Expanded(child: gridView(context)),
 					// Expanded(child: listView())
 				]
 			)
@@ -33,19 +32,18 @@ class MainApp extends StatelessWidget {
 			),
 			Expanded(
 				child: SmartListView.list(
+					onLoadMore: (lastItem, page) => demoItems(lastItem: lastItem),
+					decoration: const SmartViewDecoration(
+						padding: EdgeInsets.symmetric(horizontal: 16)
+					),
 					futureItems: demoItems(),
-					padding: const EdgeInsets.symmetric(horizontal: 16),
-					shrinkWrap: true,
-					itemBuilder: (context, item) => Text('Item ${item+1}'),
-					separatorBuilder: (item) => const SizedBox(height: 16),
-					infiniteScroll: true,
-					onLoadMore: (lastItem, page) => demoItems(lastItem: lastItem)
+					itemBuilder: (context, item) => Text('Item ${item+1}')
 				)
 			)
 		]
 	);
 
-	Widget gridView() => Column(
+	Widget gridView(BuildContext context) => Column(
 		children: [
 			const Text(
 				'Grid View',
@@ -57,13 +55,17 @@ class MainApp extends StatelessWidget {
 			Expanded(
 				child: SmartListView.grid(
 					futureItems: demoItems(),
-					padding: const EdgeInsets.symmetric(horizontal: 16),
-					shrinkWrap: true,
-					itemBuilder: (context, item) => Text('Grid ${item+1}'),
-					infiniteScroll: true,
-					gridDelegate: const GridDelegate(
-						itemMaxWidth: 120
+					decoration: const SmartViewDecoration(
+						padding: EdgeInsets.symmetric(horizontal: 16),
+						loadingDelegate: ItemsLoadingDelegate(
+							infiniteScroll: false,
+							gridLoadMoreCard: Text('ddd')
+						)
 					),
+					delegate: SmartViewGridDelegate(
+						itemMaxWidth: MediaQuery.of(context).size.width * .3
+					),
+					itemBuilder: (context, item) => Text('Grid ${item+1}'),
 					onLoadMore: (lastItem, page) => demoItems(lastItem: lastItem)
 				)
 			)

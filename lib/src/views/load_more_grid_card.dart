@@ -1,8 +1,8 @@
-part of './index.dart';
+part of '../views.dart';
 
-class GridViewTileSkeleton extends StatelessWidget {
+class LoadMoreGridCard extends StatelessWidget {
 
-	const GridViewTileSkeleton({super.key});
+	const LoadMoreGridCard({super.key});
 	
 	Decoration get _decoration => BoxDecoration(
 		borderRadius: BorderRadius.circular(5),
