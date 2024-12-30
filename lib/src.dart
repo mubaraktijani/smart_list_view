@@ -34,7 +34,7 @@ class SmartListView<T> extends StatefulWidget {
 		SmartViewListDelegate delegate = const SmartViewListDelegate(),
 		SmartViewDecoration decoration = const SmartViewDecoration(),
 		Future<List<T>> Function(T lastItem, int page)? onLoadMore,
-		required Widget Function(BuildContext, dynamic) itemBuilder
+		required Widget Function(BuildContext, T) itemBuilder
 	}) => SmartListView<T>(
 		items: items ?? [],
 		onLoadMore: onLoadMore,
@@ -50,7 +50,7 @@ class SmartListView<T> extends StatefulWidget {
 		SmartViewGridDelegate delegate = const SmartViewGridDelegate(),
 		SmartViewDecoration decoration = const SmartViewDecoration(),
 		Future<List<T>> Function(T lastItem, int page)? onLoadMore,
-		required Widget Function(BuildContext, dynamic) itemBuilder
+		required Widget Function(BuildContext, T) itemBuilder
 	}) => SmartListView<T>(
 		items: items ?? [],
 		layout: SmartListLayout.grid,
@@ -67,7 +67,7 @@ class SmartListView<T> extends StatefulWidget {
 		SmartViewGroupedDelegate<T> delegate = const SmartViewGroupedDelegate(),
 		SmartViewDecoration decoration = const SmartViewDecoration(),
 		Future<List<T>> Function(T lastItem, int page)? onLoadMore,
-		required Widget Function(BuildContext, dynamic) itemBuilder
+		required Widget Function(BuildContext, T) itemBuilder
 	}) => SmartListView<T>(
 		items: items ?? [],
 		onLoadMore: onLoadMore,
