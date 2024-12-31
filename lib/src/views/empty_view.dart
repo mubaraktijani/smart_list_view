@@ -4,12 +4,14 @@ class EmptyView extends StatelessWidget {
 
 	final Widget? icon;
 	final String? message;
+	final String? caption;
 	final TextStyle? textStyle;
 
 	const EmptyView({
 		super.key,
 		this.icon,
 		this.message,
+		this.caption,
 		this.textStyle
 	});
 
@@ -28,7 +30,19 @@ class EmptyView extends StatelessWidget {
 						fontSize: 16,
 						fontWeight: FontWeight.w400
 					)
-				)
+				),
+				if(caption != null) ...[
+					const SizedBox(height: 16),
+					Text(
+						caption!,
+						textAlign: TextAlign.center,
+						textScaler: const TextScaler.linear(.7),
+						style: textStyle ?? const TextStyle(
+							fontSize: 16,
+							fontWeight: FontWeight.w400
+						)
+					)
+				]
 			]
 		)
 	);
