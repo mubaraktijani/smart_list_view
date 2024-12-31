@@ -86,6 +86,8 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 	int page = 0;
 	bool isLoading = false;
 	List<T> loadedItems = [];
+	bool hasError = false;
+	dynamic error;
 	bool showLoadMoreButton = false;
 
 	final ScrollController scrollController = ScrollController();
@@ -126,6 +128,11 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 	}
 
 	Future<void> loadItems({bool isLoadMore = false}) async {
+		setState(() {
+			error = null;
+			hasError = false;
+		});
+
 		try {
 			List<T> items;
 			if(!isLoadMore) {
@@ -160,7 +167,11 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 				loadedItems.addAll(items);
 			});
 		} catch (e) {
-			setState(() => isLoading = false);
+			setState(() {
+				error = e;
+				hasError = true;
+				isLoading = false;
+			});
 		}
 	}
 
@@ -169,6 +180,8 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 		if(widget.futureItems == null) return main(widget.items);
 
 		if(loadedItems.isEmpty && isLoading) return _loader();
+
+		if(hasError && !isLoading) return widget.decoration.loadingErrorDelegate.getView(context, error);
 
 		if(loadedItems.isEmpty && !isLoading) return widget.decoration.emptyDelegate.getView(context);
 

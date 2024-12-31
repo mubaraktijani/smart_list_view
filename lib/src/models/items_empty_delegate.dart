@@ -13,10 +13,12 @@ class ItemsEmptyDelegate {
 		this.textStyle, 
 	});
 
-	getView(BuildContext context) => builder ?? EmptyView(
-		icon: icon,
-		message: message,
-		textStyle: textStyle,
-	);
+	getView(BuildContext context) => builder != null 
+		? builder!(context)
+		: EmptyView(
+			icon: icon,
+			message: message ?? "Response Empty",
+			textStyle: textStyle,
+		);
 
 }
