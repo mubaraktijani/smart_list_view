@@ -33,7 +33,7 @@ enum SmartListLayout {
 			layout: this
 		);
 
-		itemBuilder(context, item) {
+		itemBuilder(BuildContext context, int index) {
 			if(delegate.items.length < index+1) return loadMoreButton;
 			return delegate.itemBuilder(context, delegate.items[index]);
 		}

@@ -36,7 +36,7 @@ class EmptyView extends StatelessWidget {
 					Text(
 						caption!,
 						textAlign: TextAlign.center,
-						textScaler: const TextScaler.linear(.7),
+						textScaler: const TextScaler.linear(.5),
 						style: textStyle ?? const TextStyle(
 							fontSize: 16,
 							fontWeight: FontWeight.w400
