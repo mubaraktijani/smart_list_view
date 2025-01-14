@@ -9,7 +9,6 @@ class _GridViewLayout extends StatelessWidget {
 	final Widget Function(BuildContext, int) itemBuilder;
 
 	const _GridViewLayout({
-		super.key,
 		this.controller,
 		required this.delegate,
 		required this.itemCount,

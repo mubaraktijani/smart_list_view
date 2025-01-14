@@ -151,7 +151,9 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 			if(
 				widget.onLoadMore == null &&
 				(widget.items.length < 10 || loadedItems.length < 10)
-			) return;
+			) {
+			  return;
+			}
 
 			setState(() => isLoading = true);
 
