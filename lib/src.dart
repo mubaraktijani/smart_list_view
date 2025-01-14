@@ -179,7 +179,10 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 
 	@override
 	Widget build(BuildContext context) {
-		if(widget.futureItems == null) return main(widget.items);
+		if(widget.futureItems == null) {
+			if(widget.items.isEmpty) return widget.decoration.emptyDelegate.getView(context);
+			return main(widget.items);
+		}
 
 		if(loadedItems.isEmpty && isLoading) return _loader();
 
