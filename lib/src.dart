@@ -83,7 +83,7 @@ class SmartListView<T> extends StatefulWidget {
 
 class _SmartListViewState<T> extends State<SmartListView<T>> {
 
-	int page = 0;
+	int page = 1;
 	bool isLoading = false;
 	List<T> loadedItems = [];
 	bool hasError = false;
@@ -137,11 +137,8 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 			List<T> items;
 			if(!isLoadMore) {
 				if(widget.futureItems == null) return;
-
 				setState(() => isLoading = true);
-
 				items = await widget.futureItems!;
-
 				return setState(() {
 					isLoading = false;
 					loadedItems = items;
@@ -186,7 +183,13 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 
 		if(loadedItems.isEmpty && isLoading) return _loader();
 
-		if(hasError && !isLoading) return widget.decoration.loadingErrorDelegate.getView(context, error);
+		if(hasError && !isLoading) {
+			return widget.decoration.loadingErrorDelegate.getView(
+				context, 
+				error,
+				() => loadItems()
+			);
+		}
 
 		if(loadedItems.isEmpty && !isLoading) return widget.decoration.emptyDelegate.getView(context);
 
