@@ -6,7 +6,7 @@ class SmartListView<T> extends StatefulWidget {
 
 	final List<T> items;
 	final SmartListLayout layout;
-	final Future<List<T>>? futureItems;
+	final Future<List<T>> Function()? futureItems;
 	final Widget Function(BuildContext, T) itemBuilder;
 	final Future<List<T>> Function(T lastItem, int page)? onLoadMore;
 
@@ -30,7 +30,7 @@ class SmartListView<T> extends StatefulWidget {
 
 	static Widget list<T>({
 		List<T>? items,
-		Future<List<T>>? futureItems,
+		Future<List<T>> Function()? futureItems,
 		SmartViewListDelegate delegate = const SmartViewListDelegate(),
 		SmartViewDecoration decoration = const SmartViewDecoration(),
 		Future<List<T>> Function(T lastItem, int page)? onLoadMore,
@@ -46,7 +46,7 @@ class SmartListView<T> extends StatefulWidget {
 
 	static Widget grid<T>({
 		List<T>? items,
-		Future<List<T>>? futureItems,
+		Future<List<T>> Function()? futureItems,
 		SmartViewGridDelegate delegate = const SmartViewGridDelegate(),
 		SmartViewDecoration decoration = const SmartViewDecoration(),
 		Future<List<T>> Function(T lastItem, int page)? onLoadMore,
@@ -63,7 +63,7 @@ class SmartListView<T> extends StatefulWidget {
 
 	static Widget grouped<T>({
 		List<T>? items,
-		Future<List<T>>? futureItems,
+		Future<List<T>> Function()? futureItems,
 		SmartViewGroupedDelegate<T> delegate = const SmartViewGroupedDelegate(),
 		SmartViewDecoration decoration = const SmartViewDecoration(),
 		Future<List<T>> Function(T lastItem, int page)? onLoadMore,
@@ -138,7 +138,7 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 			if(!isLoadMore) {
 				if(widget.futureItems == null) return;
 				setState(() => isLoading = true);
-				items = await widget.futureItems!;
+				items = await widget.futureItems!();
 				return setState(() {
 					isLoading = false;
 					loadedItems = items;
@@ -187,7 +187,9 @@ class _SmartListViewState<T> extends State<SmartListView<T>> {
 			return widget.decoration.loadingErrorDelegate.getView(
 				context, 
 				error,
-				() => loadItems()
+				() {
+					loadItems();
+				}
 			);
 		}
 

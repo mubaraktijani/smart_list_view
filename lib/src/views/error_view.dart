@@ -39,7 +39,7 @@ class LoadingErrorView extends StatelessWidget {
 				SizedBox(height: getHeight(context) * .01),
 				Container(
 					width: MediaQuery.of(context).size.width * .7,
-					constraints: BoxConstraints(
+					constraints: const BoxConstraints(
 						maxWidth: 400,
 						minWidth: 200,
 					),
@@ -54,7 +54,7 @@ class LoadingErrorView extends StatelessWidget {
 				),
 				SizedBox(height: getHeight(context) * .03),
 				ElevatedButton(
-					onPressed: onReload ?? () {},
+					onPressed: onReload,
 					child: const Text('Reload')
 				)
 			]

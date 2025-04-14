@@ -36,7 +36,7 @@ class MainApp extends StatelessWidget {
 					decoration: const SmartViewDecoration(
 						padding: EdgeInsets.symmetric(horizontal: 16)
 					),
-					futureItems: demoItems(),
+					futureItems: demoItems,
 					itemBuilder: (context, item) => Text('Item ${item+1}')
 				)
 			)
@@ -54,7 +54,7 @@ class MainApp extends StatelessWidget {
 			),
 			Expanded(
 				child: SmartListView.grid(
-					futureItems: demoItems(),
+					futureItems: demoItems,
 					decoration: const SmartViewDecoration(
 						padding: EdgeInsets.symmetric(horizontal: 16),
 						loadingDelegate: ItemsLoadingDelegate(
@@ -73,8 +73,9 @@ class MainApp extends StatelessWidget {
 	);
 
 	Future<List<int>> demoItems({int lastItem = 0}) async {
-		await Future.delayed(const Duration(seconds: 60));
-		return List.generate(10, (index) => lastItem + (index+1))
-			.toList();
+		await Future.delayed(const Duration(seconds: 3));
+		throw('error');
+		// return List.generate(10, (index) => lastItem + (index+1))
+		// 	.toList();
 	}
 }

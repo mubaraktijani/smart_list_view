@@ -2,7 +2,7 @@ part of '../models.dart';
 
 class SmartViewDelegate<T> {
 	final List<T> items;
-	final Future<List<T>>? futureItems;
+	final Future<List<T>> Function()? futureItems;
 	final ScrollController controller;
 	Widget Function(BuildContext, T) itemBuilder;
 	final Future<List<T>> Function(T lastItem, int page)? onLoadMore;
